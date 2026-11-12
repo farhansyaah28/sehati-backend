@@ -1,98 +1,249 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# SEHATI Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**SEHATI (Sekolah Hijau dan Anti Plastik)** merupakan aplikasi manajemen insentif ramah lingkungan yang dirancang untuk mendukung penerapan kebiasaan mengurangi penggunaan plastik di lingkungan sekolah.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Repository ini berisi implementasi **Back-End SEHATI** yang dikembangkan menggunakan NestJS, TypeScript, dan Firebase Cloud Firestore. Back-end menyediakan REST API untuk mendukung pengelolaan data pengguna, pencatatan kehadiran membawa tumbler, pengelolaan pelanggaran, transaksi kantin, serta sistem penghargaan bagi siswa.
 
-## Description
+## Gambaran Umum
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+SEHATI dikembangkan sebagai sistem pendukung program sekolah ramah lingkungan dan anti plastik. Aplikasi ini membantu proses pencatatan serta pengelolaan aktivitas yang berkaitan dengan penerapan kebiasaan ramah lingkungan di sekolah.
 
-## Project setup
+Repository ini berfokus pada pengembangan sisi back-end, yang bertanggung jawab dalam menyediakan layanan API, mengelola data, menangani autentikasi, dan mengatur hak akses pengguna berdasarkan perannya.
 
-```bash
-$ npm install
+## Teknologi yang Digunakan
+
+- **Framework:** NestJS 11
+- **Bahasa Pemrograman:** TypeScript
+- **Database:** Firebase Cloud Firestore
+- **Autentikasi:** Firebase Authentication
+- **Arsitektur API:** REST API
+- **Package Manager:** npm
+- **Runtime:** Node.js
+
+## Fitur Utama
+
+- **Autentikasi dan Otorisasi** — Menggunakan Firebase Authentication serta pengaturan hak akses berdasarkan peran pengguna.
+- **Manajemen Pengguna** — Menyediakan layanan untuk pengelolaan data pengguna aplikasi.
+- **Absensi Tumbler** — Mendukung pencatatan dan pengelolaan kehadiran siswa yang membawa tumbler.
+- **Manajemen Pelanggaran** — Mengelola data pelanggaran serta jenis pelanggaran terkait program lingkungan.
+- **Manajemen Produk** — Menyediakan layanan pengelolaan produk kantin.
+- **Manajemen Transaksi** — Mendukung pencatatan transaksi kantin.
+- **Manajemen Voucher** — Mengelola informasi voucher dan penukaran voucher.
+- **Leaderboard** — Menyediakan layanan yang berkaitan dengan papan peringkat.
+- **Pengaturan Aplikasi** — Mengelola data pengaturan aplikasi.
+
+## Hak Akses Pengguna
+
+Back-end SEHATI mendukung empat peran pengguna:
+
+| Peran | Deskripsi |
+|---|---|
+| `admin` | Memiliki akses terhadap fungsi administratif dan pengelolaan data aplikasi. |
+| `guru` | Memiliki akses terhadap fungsi yang berkaitan dengan aktivitas guru, termasuk pemantauan siswa. |
+| `siswa` | Memiliki akses terhadap fungsi yang berkaitan dengan aktivitas siswa. |
+| `kantin` | Memiliki akses terhadap fungsi pengelolaan kantin. |
+
+Pembatasan akses terhadap endpoint dilakukan menggunakan mekanisme autentikasi dan otorisasi berdasarkan peran pengguna.
+
+## Struktur Proyek
+
+Aplikasi dikembangkan menggunakan arsitektur modular NestJS untuk memisahkan fungsi berdasarkan modul dan tanggung jawabnya.
+
+```text
+sehati-backend/
+├── src/
+│   ├── admin/
+│   ├── auth/
+│   ├── guru/
+│   ├── kantin/
+│   ├── leaderboard/
+│   ├── siswa/
+│   ├── users/
+│   ├── settings/
+│   ├── common/
+│   ├── app.module.ts
+│   └── main.ts
+├── scripts/
+│   ├── seed.ts
+│   └── get-token.ts
+├── test/
+├── API-DOCS.md
+├── .env.example
+├── package.json
+└── README.md
 ```
 
-## Compile and run the project
+## Autentikasi dan Otorisasi
 
-```bash
-# development
-$ npm run start
+SEHATI menggunakan **Firebase Authentication** untuk proses autentikasi pengguna.
 
-# watch mode
-$ npm run start:dev
+Setelah berhasil melakukan autentikasi, aplikasi klien memperoleh Firebase ID Token. Token tersebut kemudian dikirimkan melalui HTTP Authorization Header ketika mengakses endpoint yang memerlukan autentikasi.
 
-# production mode
-$ npm run start:prod
+Contoh penggunaan header:
+
+```http
+Authorization: Bearer <firebase-id-token>
 ```
 
-## Run tests
+Pada sisi back-end, token divalidasi menggunakan `FirebaseAuthGuard`. Selanjutnya, pembatasan hak akses berdasarkan peran pengguna diterapkan melalui `RolesGuard` dan decorator `@Roles`.
 
-```bash
-# unit tests
-$ npm run test
+## Konfigurasi API
 
-# e2e tests
-$ npm run test:e2e
+Back-end SEHATI menggunakan konfigurasi API sebagai berikut:
 
-# test coverage
-$ npm run test:cov
+- **Prefix API:** `/api/v1`
+- **Health Check:** `GET /api/v1/health`
+
+Contoh permintaan:
+
+```http
+GET /api/v1/health
 ```
 
-## Deployment
+Informasi mengenai endpoint API dapat dilihat pada file [`API-DOCS.md`](./API-DOCS.md).
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+> Catatan: Dokumentasi endpoint dikelola secara terpisah dan perlu disesuaikan dengan implementasi controller terbaru.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Struktur Database
+
+SEHATI menggunakan Firebase Cloud Firestore sebagai basis data untuk menyimpan informasi aplikasi.
+
+Berikut merupakan koleksi Firestore yang digunakan dalam implementasi back-end:
+
+| Koleksi | Keterangan |
+|---|---|
+| `users` | Menyimpan informasi pengguna dan perannya. |
+| `absensi` | Menyimpan data pencatatan absensi siswa. |
+| `pelanggaran` | Menyimpan data pelanggaran terkait program lingkungan. |
+| `jenis_pelanggaran` | Menyimpan kategori atau jenis pelanggaran. |
+| `kelas` | Menyimpan informasi kelas. |
+| `produk` | Menyimpan data produk kantin. |
+| `transaksi` | Menyimpan data transaksi. |
+| `vouchers` | Menyimpan informasi voucher. |
+| `voucher_redemptions` | Menyimpan data penukaran voucher. |
+| `settings` | Menyimpan pengaturan aplikasi. |
+
+## Instalasi dan Menjalankan Proyek
+
+### Persyaratan
+
+Pastikan perangkat telah memiliki:
+
+- Node.js
+- npm
+- Firebase Project yang telah mengaktifkan Firebase Authentication dan Cloud Firestore.
+
+### 1. Clone Repository
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+git clone https://github.com/farhansyaah28/sehati-backend.git
+cd sehati-backend
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 2. Instal Dependensi
 
-## Resources
+```bash
+npm install
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+### 3. Konfigurasi Environment Variable
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Buat file `.env` berdasarkan file contoh yang tersedia:
 
-## Support
+```bash
+cp .env.example .env
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Sesuaikan konfigurasi kredensial Firebase dan variabel lingkungan lainnya dengan konfigurasi Firebase Project yang digunakan.
 
-## Stay in touch
+**Penting:** Jangan mengunggah private key, kredensial service account, access token, atau informasi sensitif lainnya ke repository publik.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 4. Menjalankan Aplikasi
 
-## License
+Mode pengembangan:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+npm run start:dev
+```
+
+Mode produksi:
+
+```bash
+npm run build
+npm run start:prod
+```
+
+Aplikasi akan berjalan menggunakan port yang telah ditentukan dalam konfigurasi.
+
+## Daftar Perintah yang Tersedia
+
+| Perintah | Keterangan |
+|---|---|
+| `npm run start` | Menjalankan aplikasi. |
+| `npm run start:dev` | Menjalankan aplikasi dalam mode pengembangan dengan watch mode. |
+| `npm run start:debug` | Menjalankan aplikasi dalam mode debug. |
+| `npm run start:prod` | Menjalankan aplikasi hasil build untuk produksi. |
+| `npm run build` | Melakukan proses build aplikasi. |
+| `npm run lint` | Menjalankan ESLint. |
+| `npm run format` | Melakukan pemformatan kode. |
+| `npm run test` | Menjalankan unit test. |
+| `npm run test:e2e` | Menjalankan end-to-end test. |
+| `npm run test:cov` | Menjalankan pengujian dengan laporan coverage. |
+| `npm run seed` | Menjalankan script untuk mengisi data awal. |
+| `npm run get-token` | Menjalankan utilitas untuk memperoleh token Firebase. |
+
+## Validasi dan Penanganan Error
+
+Implementasi back-end memanfaatkan beberapa fitur NestJS untuk menangani permintaan dan respons API, antara lain:
+
+- **Global ValidationPipe** — Melakukan validasi terhadap data permintaan yang diterima API.
+- **Global Exception Filter** — Menangani exception atau kesalahan selama proses permintaan.
+- **Response Transformation Interceptor** — Mengatur transformasi format respons API.
+
+Komponen tersebut digunakan untuk mendukung proses penanganan permintaan dan respons pada aplikasi.
+
+## Pengujian
+
+Repository ini menyediakan konfigurasi untuk pengujian unit dan end-to-end.
+
+Menjalankan unit test:
+
+```bash
+npm run test
+```
+
+Menjalankan end-to-end test:
+
+```bash
+npm run test:e2e
+```
+
+Menjalankan pengujian dengan laporan coverage:
+
+```bash
+npm run test:cov
+```
+
+Hasil pengujian perlu diverifikasi pada lingkungan pengembangan sebelum dinyatakan berhasil.
+
+## Dokumentasi API
+
+Dokumentasi endpoint API tersedia pada file:
+
+[`API-DOCS.md`](./API-DOCS.md)
+
+Dokumentasi tersebut berisi informasi mengenai endpoint serta detail permintaan API. Dokumentasi perlu diperbarui secara berkala agar tetap sesuai dengan implementasi controller terbaru.
+
+## Keamanan
+
+Beberapa hal yang perlu diperhatikan dalam pengelolaan aplikasi:
+
+- Menggunakan Firebase ID Token untuk autentikasi permintaan API yang dilindungi.
+- Menerapkan pembatasan hak akses berdasarkan peran pengguna.
+- Menjaga kerahasiaan kredensial Firebase Service Account.
+- Tidak mengunggah informasi sensitif melalui file konfigurasi ke repository publik.
+- Tidak mencantumkan kredensial akun pengujian atau konfigurasi rahasia dalam dokumentasi publik.
+
+## Lisensi
+
+Repository ini belum mencantumkan lisensi secara khusus.
