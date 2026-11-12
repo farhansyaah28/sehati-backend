@@ -124,20 +124,6 @@ Semua endpoint mengembalikan format yang sama:
 
 ---
 
-## Akun Test (Development)
-
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | admin@sehati.test | Admin123! |
-| Guru | guru1@sehati.test | Guru123! |
-| Guru | guru2@sehati.test | Guru123! |
-| Siswa | siswa1@sehati.test | Siswa123! |
-| Siswa | siswa2@sehati.test | Siswa123! |
-| Siswa | siswa3@sehati.test | Siswa123! |
-| Kantin | kantin1@sehati.test | Kantin123! |
-
----
-
 ## Endpoints
 
 ### Auth (`/auth`)
