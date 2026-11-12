@@ -8,7 +8,6 @@
 | Format Response | JSON |
 | Authentication | Firebase ID Token (Bearer Token) |
 | Firebase Project ID | `sehati-backend` |
-| Firebase API Key | `AIzaSyDVk42NrphJxSXUlotehZXknt7UPQsRPjs` |
 
 ---
 
